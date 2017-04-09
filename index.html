@@ -3,12 +3,11 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Easy Charter</title>
+	<title>Easy Charters</title>
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css">
 	<link rel="stylesheet" type="text/css" href="js/jquery-ui/jquery-ui.css">
 	<link rel="stylesheet" type="text/css" href="js/jquery-ui/jquery-ui.theme.min.css">
-	
 	<script src="https://use.fontawesome.com/c707f0dfb5.js"></script>
 	<style type="text/css">
 		body {
@@ -37,7 +36,7 @@
 			width: 2em !important;
 			height: 2em !important;
 		}
-		ul li a{
+		ul li a {
 			font-size: 1.1em !important;
 			color:black !important;
 		}
@@ -47,11 +46,32 @@
 		ul li a:focus {
 			background-color: transparent !important;
 		}
+		a#rueda:focus{
+			background-color: transparent !important;
+		}
+		a#rueda:hover{
+			background-color: transparent !important;
+		}
+		a#rueda{
+			background-color: transparent !important;
+		}
 		input::placeholder{
 			color:black !important;
 		}
-		
-		
+		div.colorModalHead{
+			background-color: #0277bd;
+		}
+		h2.posicionTituloModal{
+			text-align: center;
+			padding: 20px;
+			color:white;
+
+		}
+		button#btnSubmit{
+			background-color:#0277bd;
+			color:white;
+			padding: 5px;
+		}
 	</style>
 		
 	
@@ -79,13 +99,15 @@
 				    <div class="collapse navbar-collapse" id="myNavbar">
 				     
 				      <ul class="nav navbar-nav navbar-right">
-				        <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-	        			<li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+				        <li><a data-toggle="modal" href="#" id="singupMod"><span class="glyphicon glyphicon-user"></span> Regístrate</a></li>
+	        			<li><a data-toggle="modal" href="#" id="loginMod"><span class="glyphicon glyphicon-log-in"></span> Iniciar sesión</a></li>
 				      </ul>
 				    </div>
 				</div>
 		</nav>
-		
+	
+	
+	
 		<div class="col-xs-10 col-xs-push-1 col-sm-12 col-sm-push-0  posicionBuscador">
 			<h3 class="text-center">Encuentra tu barco ideal</h3>
  
@@ -123,23 +145,146 @@
 		</div>
 
 	</header>
-	
+	<main>
+		<!-- CONTENIDO DEL MODAL LOGIN -->
+		<div class="modal fade" id="login" role="dialog">
+	    	<div class="modal-dialog">
+	          <div class="modal-content">
+		        <div class="modal-header colorModalHead">
+		          <button type="button" class="close" data-dismiss="modal" style="color:white;">&times;</button>
+		          <h2 class="modal-title posicionTituloModal"><span class="glyphicon glyphicon-lock"></span> Iniciar Sesión</h2>
+		        </div>
+		        <div class="modal-body">
+		         <form role="form" action="" method="post">
+		            <div class="form-group">
+		              <label for="email"><span class="glyphicon glyphicon-envelope"></span> Email:</label>
+		              <input type="email" class="form-control" id="email" placeholder="Enter email">
+		            </div>
+		            <div class="form-group">
+		              <label for="passwd"><span class="glyphicon glyphicon-lock"></span> Password:</label>
+		              <input type="password" class="form-control" id="passwd" placeholder="Enter password">
+		            </div>
+		            <div class="checkbox">
+		              <label><input type="checkbox" value="" checked>Recordar Inicio sesión</label>
+		            </div>
+		              <button type="submit" class="btn btn-block" id="btnSubmit"><span class="glyphicon glyphicon-off"></span> Iniciar sesión</button>
+		          </form>
+		        </div>
+		        <div class="modal-footer">
+		          <button type="submit" class="btn btn-primary pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Volver</button>
+		          <p>¿No eres miembro? <a href="#">Regístrate</a></p>
+		          <p>¿No recuerdas la <a href="#">Contraseña?</a></p>
+		        </div>
+		      </div>
+		    </div>
+		</div>
+		<!-- CONTENIDO DEL MODAL SIGN UP -->
+		<div class="modal fade" id="singup" role="dialog">
+	    	<div class="modal-dialog">
+	          <div class="modal-content">
+		        <div class="modal-header colorModalHead">
+		          <button type="button" class="close" data-dismiss="modal" style="color:white;">&times;</button>
+		          <h2 class="modal-title posicionTituloModal"><span class="glyphicon glyphicon-user"></span> Regístrate</h2>
+		        </div>
+		        <div class="modal-body">
+		         <form role="form" action="" method="post">
+		            <div class="form-group col-xs-5 col-xs-push-1">
+		              <label for="nombre"><span class="glyphicon glyphicon-user"></span> Nombre:</label>
+		              <input type="text" class="form-control" id="text" placeholder="Nombre" name="fNombre">
+		            </div>
+		            <div class="form-group col-xs-5 col-xs-push-1">
+		              <label for="apellidos"><span class="glyphicon glyphicon-user"></span> Apellidos:</label>
+		              <input type="apellidos" class="form-control" id="apellidos" placeholder="Apellidos" name="fApellidos">
+		            </div>
+		            <div class="form-group col-xs-10 col-xs-push-1">
+		              <label for="passwd"><span class="glyphicon glyphicon-lock"></span> Password:</label>
+		              <input type="password" class="form-control" id="passwd" placeholder="Password" name="fPasswd">
+		            </div>
+		            <div class="form-group col-xs-10 col-xs-push-1">
+		              <label for="email"><span class="glyphicon glyphicon-envelope"></span> Email:</label>
+		              <input type="email" class="form-control" id="email" placeholder="Email" name="fEmail">
+		            </div>
+		            <div class="form-group col-xs-5 col-xs-push-1">
+		              <label for="dni"><i class="fa fa-id-card" aria-hidden="true"></i> NIF/NIE/Passaporte:</label>
+		              <input type="text" class="form-control" id="dni" placeholder="NIF/NIE" name="fDni">
+		            </div>
+		            <div class="form-group col-xs-5 col-xs-push-1">
+		              <label for="fecha"><span class="glyphicon glyphicon-user"></span> Fecha de nacimiento:</label>
+		              <input type="fecha" class="form-control" id="fecha" placeholder="20/06/1990" name="fFecha">
+		            </div>
+		             <div class="form-group col-xs-5 col-xs-push-1">
+		              <label for="movil"><span class="glyphicon glyphicon-phone"></span> Móvil:</label>
+		              <input type="text" class="form-control" id="movil" placeholder="Móvil" name="fMovil">
+		            </div>
+		             <div class="form-group col-xs-5 col-xs-push-1">
+		              <label for="telefono"><span class="glyphicon glyphicon-phone-alt"></span> Télefono:</label>
+		              <input type="text" class="form-control" id="telefono" placeholder="Teléfono" name="fTel">
+		            </div>
+		            <div class="col-xs-8 col-xs-push-1">
+			            <h4>Seleccione una foto de perfil</h4>
+			            <div class="input-group">
+			                <label class="input-group-btn">
+			                    <span class="btn " style="background-color: #0277bd; color: white;">
+			                        Buscar <input type="file" style="display: none;" multiple id="archivo">
+			                    </span>
+			                </label>
+			                <input type="text" id="textoFile" class="form-control" readonly>
+
+			            </div>
+			        </div>
+			        <div class="col-xs-2 col-xs-push-1">
+			        	<div>&nbsp;</div>
+			        	<div>&nbsp;</div>
+			        	<button id="eliminarFoto" type="button" class="btn  " style="background-color: #0277bd; color: white;" >&times;</button>
+			        </div>
+		            <div class="checkbox col-xs-10 col-xs-push-1" >
+		              <label><input type="checkbox" value="" required>Usted está aceptando nuestros <a href="#"> terminos y condiciones </a></label>
+		            </div>
+		            <div class="col-xs-10 col-xs-push-1">
+		            	 <button type="submit" class="btn btn-lg btn-block" id="btnSubmit"><i class="fa fa-sign-in" aria-hidden="true"></i></span> Registrarse</button>
+		            </div>
+		          </form>
+		        </div>
+
+		        <div class="clearfix"></div>
+		        <br><br>
+		      </div>
+		    </div>
+		</div>
+
+	</main>
+	 
+
+
 <script src="js/jquery3.1.1.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script type="text/javascript" src="js/jquery-ui/jquery-ui.js"></script>
 <script>
 $(function () {
-        $.datepicker.setDefaults($.datepicker.regional["es"]);
-       
-
-        $("#datepicker, #datepicker2").datepicker({
-            dateFormat: 'dd/mm/yy',
-            firstDay: 1,
-            dayNamesMin: ["Do","Lu","Ma","Mi","Ju","Vi","Sa",],
-            duration: "slow",
-            hideIfNoPrevNext: true
-        });
+    $.datepicker.setDefaults($.datepicker.regional["es"]);
+    $("#datepicker, #datepicker2").datepicker({
+        dateFormat: 'dd/mm/yy',
+        firstDay: 1,
+        dayNamesMin: ["Do","Lu","Ma","Mi","Ju","Vi","Sa",],
+        duration: "slow",
+        hideIfNoPrevNext: true
     });
+    $("#loginMod").click(function(){
+    	$("#login").modal();
+    })
+ 	$("#singupMod").click(function(){
+    	$("#singup").modal();
+    }) 
+    $("#archivo").on('change', function(){
+    	var x=$(this).val();
+ 		$("#textoFile").val(x);
+    })    
+ 	$("#eliminarFoto").click(function(){
+ 		$("#textoFile").val(null);
+ 	});
+
+
+});
 
 	
 </script>	
