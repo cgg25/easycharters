@@ -53,46 +53,42 @@
 		  </div>
 		</nav>
 	</header>
-	<main id="margin">
-		<aside>
-			<div class="col-xs-12 col-sm-12">
-				<form class="form-horizontal">
-					<div class="form-group col-xs-10">
-						<div>
-							<label class="control-label">Precio:</label>
-							<input type="text" id="amount" readonly style="border:0; color:#007fad; font-weight:bold;">
-						</div>
-						<div id="rangeSlider" name='frango' class="col-xs-4
-								" />
-					
-					</div>
-				</form>
-			</div>
-		</aside>
-		<section>
-
-
-
-
-		</section>
+	<main >
+		<div class="container">
+			<div class="form-group">
+				<label for="amount">Maximum price:</label>
+			  	<input type="text" id="amount" readonly style="border:0; color:#0277bd; font-weight:bold;">
+			</div>		
+				 
+				<div id="slider-range-min" class="col-lg-2"></div>
+			
+		</div>
+	
 	</main>
 
 	<script src="js/jquery3.1.1.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="js/jquery-ui/jquery-ui.js"></script>
-	<script type="text/javascript">
+	<script>
+	  $( function() {
+	  	$("#slider-range-min").css({
+	  		"background-color":"#0277bd",
+	  		"border-radius":"20px",
+	  	});
+	    $( "#slider-range-min" ).slider({
+	      range: "min",
+	      value: 500,
+	      min: 400,
+	      max: 4000,
+	      animate:"fast",
+	      slide: function( event, ui ) {
+	        $( "#amount" ).val( ui.value+" €" );
+	      }
+	    });
+	    $( "#amount" ).val(  $( "#slider-range-min" ).slider( "value" )+" €"  );
+	  } );
+  </script>
 	
-		$( "#rangeSlider" ).slider({
-			range: true,
-			min:300,
-			max:3000,
-			values: [ 300, 3000 ],
-			slide: function( event, ui ) {
-				$( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
-			}
-		});
-		$( "#amount" ).val( "$" + $( "#rangeSlider" ).slider( "values", 0 ) +
-			" - $" + $( "#rangeSlider" ).slider( "values", 1 ) );
-	</script>
+		
 </body>
 </html>

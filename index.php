@@ -22,11 +22,11 @@
 	<script src="https://use.fontawesome.com/c707f0dfb5.js"></script>
 	<style type="text/css">
 		body {
-			 background-image: url(portadaPrueba3.jpg);
-			 background-position: center top;
+			 background-image: url(prueba4.jpg);
+			 background-position: center 70%;
 			 background-repeat: no-repeat;
 			 background-attachment: fixed;
-			 background-size: cover;
+			 background-size: cover 100%;
 			 background-color: #464646;
  		}
 		div.posicionBuscador{
@@ -108,7 +108,7 @@
 		<div class="col-xs-10 col-xs-push-1 col-sm-12 col-sm-push-0  posicionBuscador">
 			<h3 class="text-center">Encuentra tu barco ideal</h3>
  
-			<form class="form-inline" action="resultados.html" method="POST" >
+			<form class="form-inline" action="" method="POST" >
 				<div class="form-group">
 					<select class="form-control input-lg">
 						<option value="">-Tipo de barco-</option>
@@ -136,14 +136,16 @@
 			      <input type="text" class="form-control input-lg" id="datepicker2" placeholder="Salida">
 			    </div>
 			    <div class="form-group">
-			    	<button type="submit" class="btn btn-block btn-lg bg-primary" >Buscar</button>
+			    	<button type="submit" class="btn btn-block btn-lg bg-primary" name="fBuscar">Buscar</button>
 			    </div>
 			</form>
 		</div>
 
 	</header>
 	<main>
-		
+		<?php if (isset($_POST['fBuscar'])) {
+			
+		} ?>
 		
 
 	</main>
