@@ -1,5 +1,13 @@
-<?php include("funciones/menu.php");
-	  include("funciones/funciones.php"); ?>
+<?php 
+		include_once("funciones/clasesObjeto.php");
+	  	include_once ("funciones/funcionesBD.php");
+	  	include_once("funciones/funciones.php");
+	 	include_once("funciones/menu.php");
+	 	
+
+	 	session_start();
+
+	   ?>
 
 <!DOCTYPE html>
 <html>
@@ -83,7 +91,19 @@
 <body>
 	<header>
 		
-		<?php Pintar_menu(); ?>
+		<?php
+			Pintar_menu();
+			if (empty($_SESSION['usuario'])) {
+				
+				pintar_modal_login();
+				pintar_modal_registro();
+				
+			}
+				
+				
+			
+			
+		?>
 	
 		<div class="col-xs-10 col-xs-push-1 col-sm-12 col-sm-push-0  posicionBuscador">
 			<h3 class="text-center">Encuentra tu barco ideal</h3>
@@ -123,10 +143,7 @@
 
 	</header>
 	<main>
-		<?php 
-			pintar_modal_login();
-			pintar_modal_registro();
-		?>
+		
 		
 
 	</main>

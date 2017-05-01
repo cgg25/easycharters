@@ -1,4 +1,5 @@
 <?php
+
 	function Pintar_menu() {
 		if (empty($_SESSION['usuario'])) { ?>
 			<nav class="navbar">
@@ -26,7 +27,7 @@
 				    </div>
 				</div>
 			</nav>
-	<?php 	}else if ($_SESSION['usuario']->getKarma()==1) { ?>
+	<?php 	}else if ($_SESSION['usuario']->getTipo()=="1") { ?>
 		
 			<nav class="navbar ">
 				<div class="container-fluid">
@@ -47,8 +48,9 @@
 				    <div class="collapse navbar-collapse" id="myNavbar2">
 				     
 				      <ul class="nav navbar-nav navbar-right">
+				      	<?php echo "<li><a>".$_SESSION['usuario']->getNombre()." ".$_SESSION['usuario']->getApellidos()."</a></li>"?>
 				        <li class="dropdown">
-					        <a id="rueda" class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="fa fa-cog fa-2x" aria-hidden="true"></i>
+					        <a id="rueda" class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="fa fa-cog fa-2x" style="color:#0277bd;" aria-hidden="true"></i>
 					        </a>
 					        <ul class="dropdown-menu">
 					          <li><a href="#">Mis reservas</a></li>
@@ -57,7 +59,7 @@
 				           	  <li><a href="#">¿Tienes Barcos?</a></li>
 				           	  <li><a href="#">Aviso Legal</a></li>
 				              <li class="divider"></li>
-				              <li><a href="#">Log out</a></li>
+				              <li><a href="../funciones/close_session.php">Log out</a></li>
 					        </ul>
 					      </li>
 				      </ul>
@@ -65,7 +67,7 @@
 				</div>
 			</nav>
 
-	<?php }else if ($_SESSION['usuario']->getKarma()==2) { ?>
+	<?php }else if ($_SESSION['usuario']->getTipo()=="2") { ?>
 		
 			<nav class="navbar ">
 				<div class="container-fluid">
@@ -86,8 +88,9 @@
 				    <div class="collapse navbar-collapse" id="myNavbar2">
 				     
 				      <ul class="nav navbar-nav navbar-right">
+				      <?php echo "<li><a>".$_SESSION['usuario']->getNombre()." ".$_SESSION['usuario']->getApellidos()."</a></li>"?>
 				        <li class="dropdown">
-					        <a id="rueda" class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="fa fa-cog fa-2x" aria-hidden="true"></i>
+					        <a id="rueda" class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="fa fa-cog fa-2x" style="color:#0277bd;" aria-hidden="true"></i>
 					        </a>
 					        <ul class="dropdown-menu">
 					          <li><a href="#">Mis reservas</a></li>
@@ -96,7 +99,7 @@
 				           	  <li><a href="#">Guias</a></li>
 				           	  <li><a href="#">Aviso Legal</a></li>
 				              <li class="divider"></li>
-				              <li><a href="#">Log out</a></li>
+				              <li><a href="../funciones/close_session.php">Log out</a></li>
 					        </ul>
 					      </li>
 				      </ul>
@@ -107,7 +110,7 @@
 
 
 
-	<?php	}elseif ($_SESSION['usuario']->getKarma()==3) { ?>
+	<?php	}elseif ($_SESSION['usuario']->getTipo()=="3") { ?>
 			
 			<nav class="navbar ">
 				<div class="container-fluid">
@@ -128,8 +131,9 @@
 				    <div class="collapse navbar-collapse" id="myNavbar2">
 				     
 				      <ul class="nav navbar-nav navbar-right">
+				      <?php echo "<li><a>".$_SESSION['usuario']->getNombre()." ".$_SESSION['usuario']->getApellidos()."</a></li>"?>
 				        <li class="dropdown">
-					        <a id="rueda" class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="fa fa-cog fa-2x" aria-hidden="true"></i>
+					        <a id="rueda" class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="fa fa-cog fa-2x" style="color:#0277bd;" aria-hidden="true"></i>
 					        </a>
 					        <ul class="dropdown-menu">
 					          <li><a href="#">Gestionar web</a></li>
@@ -138,7 +142,7 @@
 				           	  <li><a href="#">Historial Reservas</a></li>
 				           	  <li><a href="#">Gráfica Beneficios</a></li>
 				              <li class="divider"></li>
-				              <li><a href="#">Log out</a></li>
+				              <li><a href="../funciones/close_session.php">Log out</a></li>
 					        </ul>
 					      </li>
 				      </ul>
@@ -147,4 +151,8 @@
 			</nav>
 	<?php	} 
 	}
+
+
+
+
  ?>

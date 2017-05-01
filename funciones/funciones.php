@@ -1,4 +1,7 @@
 <?php
+	
+	session_start();
+	
 	/*Pinta el modal para login a la web*/
 	function pintar_modal_login() { ?>
 		<div class="modal fade" id="login" role="dialog">
@@ -12,16 +15,14 @@
 		         <form role="form" action="" method="post">
 		            <div class="form-group">
 		              <label for="email"><span class="glyphicon glyphicon-envelope"></span> Email:</label>
-		              <input type="email" class="form-control" id="email" placeholder="Enter email">
+		              <input type="email" class="form-control" name="fEmail" id="email" placeholder="Enter email">
 		            </div>
 		            <div class="form-group">
 		              <label for="passwd"><span class="glyphicon glyphicon-lock"></span> Password:</label>
-		              <input type="password" class="form-control" id="passwd" placeholder="Enter password">
+		              <input type="password" class="form-control" id="passwd" placeholder="Enter password" name="fPasswd" required>
 		            </div>
-		            <div class="checkbox">
-		              <label><input type="checkbox" value="" checked>Recordar Inicio sesión</label>
-		            </div>
-		              <button type="submit" class="btn btn-block" id="btnSubmit"><span class="glyphicon glyphicon-off"></span> Iniciar sesión</button>
+		            
+		              <button type="submit" class="btn btn-block" id="btnSubmit" name="btnLogin"><span class="glyphicon glyphicon-off"></span> Iniciar sesión</button>
 		          </form>
 		        </div>
 		        <div class="modal-footer">
@@ -45,14 +46,14 @@
 		          <h2 class="modal-title posicionTituloModal"><span class="glyphicon glyphicon-user"></span> Regístrate</h2>
 		        </div>
 		        <div class="modal-body">
-		         <form role="form" action="" method="post" id="registro">
+		         <form role="form" action="../index.php" method="post" id="registro">
 		            <div class="form-group col-xs-5 col-xs-push-1">
 		              	<label><span class="glyphicon glyphicon-user"></span> Nombre:</label>
 		            	<input type="text" class="form-control" placeholder="Nombre" name="fNombre"  pattern="^[a-zÁÉÍÓÚa-zñáéíóú\d_]{4,15}$" required>
 		            </div>
 		            <div class="form-group col-xs-5 col-xs-push-1">
 		              	<label><span class="glyphicon glyphicon-user"></span> Apellidos:</label>
-		              	<input type="apellidos" class="form-control" placeholder="Apellidos" name="fApellidos" pattern="^[a-z][a-z]*" required>
+		              	<input type="apellidos" class="form-control" placeholder="Apellidos" name="fApellidos" pattern="^[a-z]\s*[a-z]*" required>
 		            </div>
 		            <div class="form-group col-xs-10 col-xs-push-1">
 		              <label for="passwd"><span class="glyphicon glyphicon-lock"></span> Password:</label>
@@ -89,23 +90,7 @@
 		              <label for="telefono"><span class="glyphicon glyphicon-phone-alt"></span> Télefono:</label>
 		              <input type="text" class="form-control" id="telefono" placeholder="Teléfono" name="fTel" required pattern="^\+?\d{1,3}?[- .]?\(?(?:\d{2,3})\)?[- .]?\d\d\d[- .]?\d\d\d\d$">
 		            </div>
-		            <div class="col-xs-8 col-xs-push-1">
-			            <h4>Seleccione una foto de perfil</h4>
-			            <div class="input-group">
-			                <label class="input-group-btn">
-			                    <span class="btn " style="background-color: #0277bd; color: white;">
-			                        Buscar <input type="file" style="display: none;" multiple id="archivo">
-			                    </span>
-			                </label>
-			                <input type="text" id="textoFile" class="form-control" readonly>
-
-			            </div>
-			        </div>
-			        <div class="col-xs-2 col-xs-push-1">
-			        	<div>&nbsp;</div>
-			        	<div>&nbsp;</div>
-			        	<button id="eliminarFoto" type="button" class="btn  " style="background-color: #0277bd; color: white;" >&times;</button>
-			        </div>
+		           
 		            <div class="checkbox col-xs-10 col-xs-push-1" >
 		              <label><input type="checkbox" value="" required>Usted está aceptando nuestros <a href="#"> terminos y condiciones </a></label>
 		            </div>
@@ -126,6 +111,51 @@
 	}
 
 	if (isset($_POST['fRegistro'])) {
-		echo "Te has registrado.";
+		/*Nos conectamos a la base de datos.*/
+		$conexion=conectar();
+
+		$consulta=consulta($conexion,"SELECT * FROM usuarios WHERE dni='".$_POST['fDni']."'");
+
+		$fila = $consulta-> num_rows;
+		if ($fila>0) {
+			echo "<script>alert('Usuario existente');</script>";
+		}else {
+			echo "<script>alert('Usuario Creado correctamente...');</script>";
+			$creacionUser=consulta($conexion,'INSERT INTO usuarios(nombre, dni, apellidos, fecha, email, movil, telefono, karma, password) VALUES ("'.$_POST['fNombre'].'","'.$_POST['fDni'].'","'.$_POST['fApellidos'].'","'.$_POST['fFecha'].'","'.$_POST['email'].'",'.$_POST['fMovil'].',"'.$_POST['fTel'].'","1","'.md5($_POST['fPasswd']).'")');
+		}
+		/*Para desconectar de la base de datos.*/
+		desconexion($conexion);
+
 	}
+	if (isset($_POST['btnLogin'])) {
+		/*Nos conectamos a la base de datos.*/
+		
+		$conexion=conectar();
+
+		if ($consulta=consulta($conexion,'SELECT * FROM usuarios WHERE email like "%'.$_POST['fEmail'].'%" and password like"%'.md5($_POST['fPasswd']).'%" ')) {
+			
+			$_SESSION['usuario']=new Usuario;
+			while ($filas=$consulta->fetch_array()) {
+				$_SESSION['usuario']->setDni($filas['dni']);
+				$_SESSION['usuario']->setNombre($filas['nombre']);
+				$_SESSION['usuario']->setApellidos($filas['apellidos']);
+				$_SESSION['usuario']->setPass($filas['password']);
+				$_SESSION['usuario']->setEmail($filas['email']);
+				$_SESSION['usuario']->setFecha($filas['fecha']);
+				$_SESSION['usuario']->setTel($filas['telefono']);
+				$_SESSION['usuario']->setMovil($filas['movil']);
+				$_SESSION['usuario']->setTipo($filas['karma']);
+			}
+			
+		}
+	
+		/*Para desconectar de la base de datos.*/
+		desconexion($conexion);
+	}
+
+
+
+
+
+	
 ?>

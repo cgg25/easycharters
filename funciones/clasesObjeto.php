@@ -71,7 +71,7 @@
 			return $this->avatar;
 		}
 	}
-
+/*
 	class Barco{
 		private $matricula;
 		private $nombre;
@@ -109,6 +109,6 @@
 			return $this->fotos;
 		}
 	}
-
+*/
 
 ?>
